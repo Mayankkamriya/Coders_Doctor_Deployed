@@ -1,7 +1,7 @@
 import React from 'react'
 import { Book } from '@/src/types'
 import Image from 'next/image'
-
+import TalkToDoctor from './Components/TalkToDoctor'
 interface SingleBookPageProps {
   params: { bookId: string };
 }
@@ -41,6 +41,7 @@ const singleBookPage = async ({ params }: SingleBookPageProps) => {
         <h2 className="mb-5 text-5xl font-bold leading-[1.1]">{book.name}</h2>
         <span className="font-semibold"> {book.speciality}</span>
         <p className="mt-5 text-lg leading-8">{book.about}</p>
+      <TalkToDoctor />
     </div>
     <div className="flex justify-end">
         <Image
