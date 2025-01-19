@@ -11,7 +11,7 @@ export default async function Home() {
   const encodedData = await response.json();
   
     const books = JSON.parse(atob(encodedData.data));
-    console.log('Decoded Books Data...:', books);
+    // console.log('Decoded Books Data...:', books);
 
   return (<>
 

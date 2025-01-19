@@ -5,6 +5,7 @@ export interface Book {
     speciality:string
     degree:string
     experience:string
+    about:string
 }
 
 

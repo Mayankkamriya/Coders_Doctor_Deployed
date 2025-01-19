@@ -16,21 +16,3 @@ const BookList = ({ books }: { books: Book[] }) => {
 }
 
 export default BookList
-
-
-
-// import React from 'react'
-// import { Book } from '@/src/types'
-
-// const BookList = ({books}:{ books: Book[] } ) => {
-//   return (
-//     <div>This BookList
-//       {
-//        books.map((book) => (
-//         <h1 key={book._id}>{book.name}</h1>
-//        ))}
-//     </div>
-//   )
-// }
-
-// export default BookList
