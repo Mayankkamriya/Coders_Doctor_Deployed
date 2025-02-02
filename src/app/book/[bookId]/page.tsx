@@ -1,11 +1,11 @@
 import React from 'react';
-import { Book } from '@/src/types';
+import { Book } from '@/src/types/index';
 import Image from 'next/image';
 import TalkToDoctor from './Components/TalkToDoctor';
-
-interface SingleBookPageProps {
-  params: { bookId: string };
-}
+import { SingleBookPageProps } from '@/src/types/SingleBookPage';
+// interface SingleBookPageProps {
+//   params: { bookId: string };
+// }
 
 const SingleBookPage = async ({ params }: SingleBookPageProps) => {
   const { bookId } = params;
