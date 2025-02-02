@@ -3,17 +3,13 @@ import { Book } from '@/src/types';
 import Image from 'next/image';
 import TalkToDoctor from './Components/TalkToDoctor';
 
-interface SingleBookPageProps {
-  params: { bookId: string };
-}
-
-const SingleBookPage = async({ params }: SingleBookPageProps) => {  // Remove 'async'
+const SingleBookPage = async ({ params }: { params: { bookId: string } }) => {
   const { bookId } = params;
-
+  
   let book: Book | null = null;
 
   try {
-    // Fetch all books.  You can keep this as is if you need to fetch on every request.
+    // Fetch all books from the API (cache='no-store' ensures fresh data)
     const response = await fetch(`${process.env.BOOKLIST_URL_DEP}/list`, { cache: 'no-store' });
 
     if (!response.ok) {
@@ -27,11 +23,9 @@ const SingleBookPage = async({ params }: SingleBookPageProps) => {  // Remove 'a
     book = books.find((b) => b._id === bookId) || null;
   } catch (err: unknown) {
     if (err instanceof Error) {
-      console.error('Error fetching books: ', err.message); // Log the error on the server
-      return <div>Error loading book.</div>; // Return an error message to the client
+      throw new Error('Error fetching books: ' + err.message);
     }
-    console.error('Unknown error occurred while fetching books'); // Log the error on the server
-    return <div>Error loading book.</div>; // Return an error message to the client
+    throw new Error('Unknown error occurred while fetching books');
   }
 
   if (!book) {
@@ -39,7 +33,42 @@ const SingleBookPage = async({ params }: SingleBookPageProps) => {  // Remove 'a
   }
 
   return (
-    // import React from 'react';
+    <div className="mx-auto max-w-6xl px-5 py-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Left side: Image */}
+        <div className="flex justify-center md:justify-start">
+          <Image
+            src={book.image}
+            alt={book.name}
+            className="rounded-md border"
+            height={300}  // Fixed height
+            width={300}   // Fixed width
+            sizes="100vw"
+            style={{
+              objectFit: 'cover',  // Ensure the image doesn't distort
+              width: '100%',
+              height: 'auto',
+            }}
+          />
+        </div>
+
+        {/* Right side: Book Details */}
+        <div className="text-primary-950">
+          <h2 className="mb-5 text-5xl font-bold leading-[1.1]">{book.name}</h2>
+          <span className="font-semibold">{book.speciality}</span>
+          <p className="mt-5 text-lg leading-8">{book.about}</p>
+          <TalkToDoctor />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SingleBookPage;
+
+
+
+//     import React from 'react';
 // import { Book } from '@/src/types';
 // import Image from 'next/image';
 // import TalkToDoctor from './Components/TalkToDoctor';
@@ -78,41 +107,41 @@ const SingleBookPage = async({ params }: SingleBookPageProps) => {  // Remove 'a
 //   }
 
 //   return (
-    <>
-      <div className="mx-auto max-w-6xl px-5 py-10">
-        {/* Layout: Image on top for mobile and side-by-side on larger screens */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Left side: Image */}
-          <div className="flex justify-center md:justify-start">
-            <Image
-              src={book.image}
-              alt={book.name}
-              className="rounded-md border"
-              height={300}  // Fixed height
-              width={300}   // Fixed width
-              sizes="100vw"
-              style={{
-                objectFit: 'cover',  // Ensure the image doesn't distort
-                width: '100%',
-                height: 'auto',
-              }}
-            />
-          </div>
+//     <>
+//       <div className="mx-auto max-w-6xl px-5 py-10">
+//         {/* Layout: Image on top for mobile and side-by-side on larger screens */}
+//         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+//           {/* Left side: Image */}
+//           <div className="flex justify-center md:justify-start">
+//             <Image
+//               src={book.image}
+//               alt={book.name}
+//               className="rounded-md border"
+//               height={300}  // Fixed height
+//               width={300}   // Fixed width
+//               sizes="100vw"
+//               style={{
+//                 objectFit: 'cover',  // Ensure the image doesn't distort
+//                 width: '100%',
+//                 height: 'auto',
+//               }}
+//             />
+//           </div>
 
-          {/* Right side: Book Details */}
-          <div className="text-primary-950">
-            <h2 className="mb-5 text-5xl font-bold leading-[1.1]">{book.name}</h2>
-            <span className="font-semibold">{book.speciality}</span>
-            <p className="mt-5 text-lg leading-8">{book.about}</p>
-            <TalkToDoctor />
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+//           {/* Right side: Book Details */}
+//           <div className="text-primary-950">
+//             <h2 className="mb-5 text-5xl font-bold leading-[1.1]">{book.name}</h2>
+//             <span className="font-semibold">{book.speciality}</span>
+//             <p className="mt-5 text-lg leading-8">{book.about}</p>
+//             <TalkToDoctor />
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
 
-export default SingleBookPage;
+// export default SingleBookPage;
 
 // import React from 'react'
 // import { Book } from '@/src/types'
