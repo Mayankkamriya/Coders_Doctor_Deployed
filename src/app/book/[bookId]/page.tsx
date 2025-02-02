@@ -2,14 +2,23 @@ import React from 'react';
 import { Book } from '@/src/types/index';
 import Image from 'next/image';
 import TalkToDoctor from './Components/TalkToDoctor';
-import { SingleBookPageProps } from '@/src/types/SingleBookPage';
+// import { SingleBookPageProps } from '@/src/types/SingleBookPage';
 // interface SingleBookPageProps {
 //   params: { bookId: string };
 // }
 
-const SingleBookPage = async ({ params }: SingleBookPageProps) => {
-  const { bookId } = params;
+// const SingleBookPage = async ({ params }: 
+//   // SingleBookPageProps
+//   { params: { bookId: string } }
+// ) => {
+//   const { bookId } = params;
   
+  const SingleBookPage = async ({ params }: { params: Promise<{ bookId: string }> }) => {
+    const resolvedParams = await params; // Await params before accessing it
+    const { bookId } = resolvedParams;
+    
+
+
   let book: Book | null = null;
 
   try {
