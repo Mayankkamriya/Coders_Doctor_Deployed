@@ -11,7 +11,7 @@ const BookList = async() => {
   const encodedData = await response.json();
   
     const books = JSON.parse(atob(encodedData.data));
-    console.log('Decoded Books Data...:', books);
+    // console.log('Decoded Books Data...:', books);
 
   return (
     <div className='grid grid-cols-1 gap-8 md:grid-cols-3 max-w-7xl mx-auto mb-10'>
