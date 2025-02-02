@@ -7,13 +7,13 @@ interface SingleBookPageProps {
   params: { bookId: string };
 }
 
-const SingleBookPage = async ({ params }: SingleBookPageProps) => {
+const SingleBookPage = async({ params }: SingleBookPageProps) => {  // Remove 'async'
   const { bookId } = params;
-  
+
   let book: Book | null = null;
 
   try {
-    // Fetch all books
+    // Fetch all books.  You can keep this as is if you need to fetch on every request.
     const response = await fetch(`${process.env.BOOKLIST_URL_DEP}/list`, { cache: 'no-store' });
 
     if (!response.ok) {
@@ -27,9 +27,11 @@ const SingleBookPage = async ({ params }: SingleBookPageProps) => {
     book = books.find((b) => b._id === bookId) || null;
   } catch (err: unknown) {
     if (err instanceof Error) {
-      throw new Error('Error fetching books: ' + err.message);
+      console.error('Error fetching books: ', err.message); // Log the error on the server
+      return <div>Error loading book.</div>; // Return an error message to the client
     }
-    throw new Error('Unknown error occurred while fetching books');
+    console.error('Unknown error occurred while fetching books'); // Log the error on the server
+    return <div>Error loading book.</div>; // Return an error message to the client
   }
 
   if (!book) {
@@ -37,6 +39,45 @@ const SingleBookPage = async ({ params }: SingleBookPageProps) => {
   }
 
   return (
+    // import React from 'react';
+// import { Book } from '@/src/types';
+// import Image from 'next/image';
+// import TalkToDoctor from './Components/TalkToDoctor';
+
+// interface SingleBookPageProps {
+//   params: { bookId: string };
+// }
+
+// const SingleBookPage = async ({ params }: SingleBookPageProps) => {
+//   const { bookId } = params;
+  
+//   let book: Book | null = null;
+
+//   try {
+//     // Fetch all books
+//     const response = await fetch(`${process.env.BOOKLIST_URL_DEP}/list`, { cache: 'no-store' });
+
+//     if (!response.ok) {
+//       throw new Error('Error fetching books');
+//     }
+
+//     const encodedData = await response.json();
+//     const books: Book[] = JSON.parse(atob(encodedData.data));
+
+//     // Find the specific book by its ID
+//     book = books.find((b) => b._id === bookId) || null;
+//   } catch (err: unknown) {
+//     if (err instanceof Error) {
+//       throw new Error('Error fetching books: ' + err.message);
+//     }
+//     throw new Error('Unknown error occurred while fetching books');
+//   }
+
+//   if (!book) {
+//     return <div>Book not found</div>;
+//   }
+
+//   return (
     <>
       <div className="mx-auto max-w-6xl px-5 py-10">
         {/* Layout: Image on top for mobile and side-by-side on larger screens */}
