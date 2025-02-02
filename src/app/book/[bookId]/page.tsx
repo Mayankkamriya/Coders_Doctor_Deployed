@@ -26,9 +26,16 @@ const singleBookPage = async ({ params }: SingleBookPageProps) => {
     book = books.find((b) => b._id === bookId) || null; // Match `_id` with `bookId`
 
     console.log('Single book...', book);
-  } catch (err: any) {
-    throw new Error('Error fetching books', err);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error('Error fetching books: ' + err.message);
+    }
+    throw new Error('Unknown error occurred while fetching books');
   }
+ 
+    // } catch (err: Error) {
+  //   throw new Error('Error fetching books', err.message);
+  // }
 
   if (!book) {
     throw new Error('Book not found');
