@@ -27,7 +27,7 @@ const singleBookPage = async ({ params }: SingleBookPageProps) => {
 
     console.log('Single book...', book);
   } catch (err: any) {
-    throw new Error('Error fetching books');
+    throw new Error('Error fetching books', err);
   }
 
   if (!book) {
