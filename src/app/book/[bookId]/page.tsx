@@ -11,7 +11,9 @@ import TalkToDoctor from './Components/TalkToDoctor';
 
   try {
     // Fetch all books (no cache to get fresh data)
-    const response = await fetch(`${process.env.BOOKLIST_URL_DEP}/list?limit=${15}`, { cache: 'no-store' });
+    const response = await fetch(`${process.env.BOOKLIST_URL_DEP}/list?limit=${15}`, 
+      // { cache: 'no-store' }
+    );
 
     if (!response.ok) {
       throw new Error('Error fetching books');
