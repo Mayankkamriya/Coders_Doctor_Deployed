@@ -3,7 +3,8 @@ import { Book } from '@/src/types'
 import BookCart from './BookCart'
 
 const BookList = async() => {
-  const response = await fetch(`${process.env.BOOKLIST_URL_DEP}/list?limit=${15}`);
+  // const response = await fetch(`${process.env.BOOKLIST_URL_DEP}/list?limit=${15}`);
+  const response = await fetch(`/api/books`); // Fetch from Next.js API
 
   if(!response.ok){
     throw new Error('An error occured while fetching the Doctors')
