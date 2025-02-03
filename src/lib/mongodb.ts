@@ -1,9 +1,9 @@
 import mongoose, { Mongoose } from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI  ;
 
 if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable in .env.local");
+  throw new Error("Please define the MONGODB_URI environment variable in .env");
 }
 
 interface Cached {
@@ -40,7 +40,7 @@ export async function connectDB(): Promise<Mongoose> {
 // import mongoose from "mongoose";
 
 // // const MONGODB_URI = process.env.MONGODB_URI;
-// const MONGODB_URI= "mongodb+srv://kamriyamanoj45:mayank99@cluster0.sbidb.mongodb.net"
+// const MONGODB_URI= ""
 // console.log(MONGODB_URI)
 // if (!MONGODB_URI) {
 //   throw new Error("Please define the MONGODB_URI environment variable in .env.local");
