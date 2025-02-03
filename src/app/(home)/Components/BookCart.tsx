@@ -18,7 +18,14 @@ const BookCart = ({ book }: { book: Book }) => {
         <div className='flex flex-col justify-center'>
             <h2 className='line-clamp-3 text-xl font-bold text-primary-600 text-balance'>{book.name}</h2>
             <p className='font-bold text-primary-900 mt-1'>{book.speciality}</p>
-            <Link href={`/book/${book._id}`} className='py-1 px-4 rounded border border-primary-500 mt-3 inline-flex text-primary-500 font-medium text-sm hover:border-primary-100 hover:bg-primary-100 transition justify-center w-fit'>Know More</Link>  
+            {/* <Link href={`/book/${book._id}`} className='py-1 px-4 rounded border border-primary-500 mt-3 inline-flex text-primary-500 font-medium text-sm hover:border-primary-100 hover:bg-primary-100 transition justify-center w-fit'>Know More</Link>   */}
+            <Link
+  // href={`/book/${book._id.toString()}`}
+  href={`/book/${String(book._id)}`}
+  className='py-1 px-4 rounded border border-primary-500 mt-3 inline-flex text-primary-500 font-medium text-sm hover:border-primary-100 hover:bg-primary-100 transition justify-center w-fit'
+>
+  Know More
+</Link>
         </div>
     </div>
   )
