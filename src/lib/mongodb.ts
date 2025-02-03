@@ -17,7 +17,7 @@ declare global {
 }
 
 // Use global object to prevent multiple connections in development
-let cached: Cached = global.mongoose || { conn: null, promise: null };
+const cached: Cached = global.mongoose || { conn: null, promise: null };
 
 export async function connectDB(): Promise<Mongoose> {
   if (cached.conn) return cached.conn;
