@@ -14,8 +14,8 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
 
-const SessionWrapper = ({ children, session }) => {
-  return <SessionProvider session={session}>{children}</SessionProvider>;
+const SessionWrapper = ({ children }) => {
+  return <SessionProvider >{children}</SessionProvider>;
 };
 
 export default SessionWrapper;

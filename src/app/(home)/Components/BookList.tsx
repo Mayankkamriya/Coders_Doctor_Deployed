@@ -18,7 +18,7 @@ const BookList = async () => {
   // Convert _id to string before passing to the component
   const formattedBooks: Book[] = books.map(book => ({
     ...book,
-    _id: String(book._id) // Convert ObjectId to string
+    _id: String(book._id), // Convert ObjectId to string
   }));
 
   return (
