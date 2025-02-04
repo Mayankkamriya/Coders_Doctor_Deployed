@@ -34,7 +34,7 @@ const Navbar = () => {
           ) : (
             // Show user email and Sign-out button if signed in
             <>
-              <span className="h-10 rounded-md border border-primary-500 px-4 py-2 text-sm font-medium text-primary-500 transition-all">{session.user?.email}</span>
+              <span className="h-10 rounded-md border border-primary-500 px-4 py-2 text-sm font-medium text-primary-500 transition-all">Welcome {session.user?.name}</span>
               <button
                 onClick={() => signOut()}
                 className="h-10 rounded-md bg-primary-500 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-primary-600 active:bg-primary-700"

@@ -9,8 +9,7 @@ const BookList = async () => {
   await connectDB();
 
   // Fetch books and ensure _id is converted to a string
-  const books = await Bookmodel.find({}).limit(15).lean();
-
+  const books = await Bookmodel.find({}).limit(15);
   if (!books || books.length === 0) {
     throw new Error('No books found');
   }
