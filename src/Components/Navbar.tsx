@@ -26,7 +26,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           {!session ? (
             // Show Sign-in button if not signed in
-            <Link href="/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F">
+            <Link href="/api/auth/signin?callbackUrl=https%3A%2F%2Fdoctor-95dh.vercel.app">
               <button className="h-10 rounded-md border border-primary-500 px-4 py-2 text-sm font-medium text-primary-500 transition-all hover:border-primary-100 hover:bg-primary-100 active:border-primary-200 active:bg-primary-200">
                 Sign in using GitHub
               </button>
