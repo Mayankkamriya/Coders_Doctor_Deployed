@@ -65,13 +65,13 @@ export const metadata: Metadata = {
 };
 
 // Define session type
-interface Session {
-  user: {
-    name: string;
-    email: string;
-  };
-  isAuthenticated: boolean;
-}
+// interface Session {
+//   user: {
+//     name: string;
+//     email: string;
+//   };
+//   isAuthenticated: boolean;
+// }
 
 export default function RootLayout({
   children,
@@ -82,13 +82,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SessionWrapper >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <Navbar />
           <main>{children}</main>
           <Footer />
-        </SessionWrapper>
       </body>
+        </SessionWrapper>
     </html>
   );
 }

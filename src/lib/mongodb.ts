@@ -1,6 +1,6 @@
 import mongoose, { Mongoose } from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://kamriyamanoj45:mayank99@cluster0.sbidb.mongodb.net' ;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable in .env");
@@ -11,13 +11,16 @@ interface Cached {
   promise: Promise<Mongoose> | null;
 }
 
-// Global caching in TypeScript
-declare global {
-  var mongoose: Cached | undefined;
-}
+// Define cached object explicitly without using global variables
+const cached: Cached = { conn: null, promise: null };
 
-// Use global object to prevent multiple connections in development
-const cached: Cached = global.mongoose || { conn: null, promise: null };
+// Global caching in TypeScript
+// declare global {
+//   var mongoose: Cached | undefined;
+// }
+
+// // Use global object to prevent multiple connections in development
+// const cached: Cached = global.mongoose || { conn: null, promise: null };
 
 export async function connectDB(): Promise<Mongoose> {
   if (cached.conn) return cached.conn;
@@ -32,8 +35,7 @@ export async function connectDB(): Promise<Mongoose> {
   }
 
   cached.conn = await cached.promise;
-  global.mongoose = cached; // Ensure caching in development
-
+  // global.mongoose = cached; // Ensure caching in development
   return cached.conn;
 }
 
