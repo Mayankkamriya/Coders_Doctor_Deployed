@@ -15,9 +15,15 @@ const BookList = async () => {
   }
 
   // Convert _id to string before passing to the component
+  // this code is of that time when in localhost running without error
+  // const formattedBooks: Book[] = books.map(book => ({
+  //   ...book,
+  //   _id: String(book._id), // Convert ObjectId to string
+  // }));
+
   const formattedBooks: Book[] = books.map(book => ({
-    ...book,
-    _id: String(book._id), // Convert ObjectId to string
+    ...book.toObject(), // Convert Mongoose document to plain object
+    _id: book._id.toString(), // Ensure _id is a string
   }));
 
   return (
