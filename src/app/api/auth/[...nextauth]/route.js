@@ -34,6 +34,7 @@ const handler = NextAuth({
         if (!existingUser) {
           // Store user details in the database
           await db.collection("users").insertOne({
+            id: user._id.toString(),
             name: user.name,
             email: user.email,
             image: user.image,
@@ -58,6 +59,7 @@ const handler = NextAuth({
       if (user) {
         token.id = user.id;
       }
+      // console.log('token...',token)
       return token;
     },
   },

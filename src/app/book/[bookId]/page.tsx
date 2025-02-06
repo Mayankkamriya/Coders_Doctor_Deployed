@@ -4,6 +4,7 @@ import React from 'react';
 import { Book } from '@/src/types/index';
 import Image from 'next/image';
 import TalkToDoctor from './Components/TalkToDoctor';
+import BookAppointment from '@/src/app/(home)/Components/BookAppointment'
 
   const SingleBookPage = async ({ params }: { params: Promise<{ bookId: string }> }) => {
     const resolvedParams = await params; // Await params before accessing it
@@ -26,6 +27,7 @@ const route = process.env.BOOKLIST_URL_LOC
 
     // Find the specific book by its ID
     book = books.find((b) => b._id === bookId) || null;
+    
   } catch (err: unknown) {
     if (err instanceof Error) {
       throw new Error('Error fetching books: ' + err.message);
@@ -65,6 +67,7 @@ const route = process.env.BOOKLIST_URL_LOC
           <TalkToDoctor />
         </div>
       </div>
+     <BookAppointment  docId={book._id}  />
     </div>
   );
 };
