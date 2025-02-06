@@ -26,7 +26,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           {!session ? (
             // Show Sign-in button if not signed in
-            <Link href="/api/auth/signin?callbackUrl=https%3A%2F%2Fdoctor-95dh.vercel.app">
+            <Link href="/api/auth/signin">
               <button className="h-10 rounded-md border border-primary-500 px-4 py-2 text-sm font-medium text-primary-500 transition-all hover:border-primary-100 hover:bg-primary-100 active:border-primary-200 active:bg-primary-200">
                 Sign in using GitHub
               </button>
@@ -34,6 +34,12 @@ const Navbar = () => {
           ) : (
             // Show user email and Sign-out button if signed in
             <>
+             {/* normal sqare shape image  */}
+             <img
+                  src={session.user?.image || '/default-avatar.png'}  // Fallback image if no image is available
+                  alt="User Avatar"
+                  className="h-8 w-8 rounded-full object-cover"
+                />
               <span className="h-10 rounded-md border border-primary-500 px-4 py-2 text-sm font-medium text-primary-500 transition-all">Welcome {session.user?.name}</span>
               <button
                 onClick={() => signOut()}

@@ -5,15 +5,17 @@ import { Book } from '@/src/types/index';
 import Image from 'next/image';
 import TalkToDoctor from './Components/TalkToDoctor';
 
-  const SingleBookPage = async ({ params }: { params: Promise<{ bookId: string }> }) => {
+  const SingleBookPage = async ({ params }: { params: { bookId: string } }) => {
     const resolvedParams = await params; // Await params before accessing it
     const { bookId } = resolvedParams;
     
   let book: Book | null = null;
-const route = process.env.BOOKLIST_URL_DEP 
+const route = process.env.BOOKLIST_URL_LOC 
   try {
     // Fetch all books (no cache to get fresh data)
-    const response = await fetch(`${route}/list?limit=${15}`, { cache: 'no-store' });
+    // const response = await fetch(`${route}/list?limit=${15}`, { cache: 'no-store' });
+
+    const response = await fetch(`${route}/api/books?limit=${15}`, { cache: 'no-store' });
 
     if (!response.ok) {
       throw new Error('Error fetching books');
