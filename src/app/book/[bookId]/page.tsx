@@ -5,7 +5,7 @@ import { Book } from '@/src/types/index';
 import Image from 'next/image';
 import TalkToDoctor from './Components/TalkToDoctor';
 
-  const SingleBookPage = async ({ params }: { params: { bookId: string } }) => {
+  const SingleBookPage = async ({ params }: { params: Promise<{ bookId: string }> }) => {
     const resolvedParams = await params; // Await params before accessing it
     const { bookId } = resolvedParams;
     
