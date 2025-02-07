@@ -16,14 +16,14 @@ const BookAppointment = ({docId}) => {
   
   useEffect(() => {
     fetchDoctorDetails();
-  }, []);
+  }, [docId]);
 
 // console.log(setDoctor())
   const fetchDoctorDetails = async () => {
     try {
       generateAvailableSlots();
     } catch (error) {
-      toast.error("Failed to fetch doctor details");
+      toast.error("Failed to fetch doctor details",error.message);
     }
   };
 
@@ -84,7 +84,7 @@ const BookAppointment = ({docId}) => {
       setSelectedDate("")
       setSelectedTime("")
     } catch (error) {
-      toast.error("Failed to book appointment");
+      toast.error("Failed to book appointment",error.message);
     }
   };
 
