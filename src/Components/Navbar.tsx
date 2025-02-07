@@ -3,6 +3,7 @@ import { signOut } from "next-auth/react";
 import Link from 'next/link';
 import React from 'react';
 import { useUser } from "@/src/context/UserContext";
+import Image from "next/image";
 
 const Navbar = () => {
   // const { data: session } = useSession();
@@ -36,11 +37,19 @@ const {user} = useUser()
             // Show user email and Sign-out button if signed in
             <>
              {/* normal sqare shape image  */}
-             <img
+             {/* <img
                   src={user?.image || '/default-avatar.png'}  // Fallback image if no image is available
                   alt="User Avatar"
                   className="h-8 w-8 rounded-full object-cover"
-                />
+                /> */}
+               <Image
+  src={user?.image || "/default-avatar.png"} // Dynamic image
+  alt="User Avatar"
+  width={32} // Equivalent to h-8
+  height={32} // Equivalent to w-8
+  className="rounded-full object-cover"
+/>
+
               <span className="h-10 rounded-md border border-primary-500 px-4 py-2 text-sm font-medium text-primary-500 transition-all">Welcome {user?.name}</span>
               <button
                 onClick={() => signOut()}

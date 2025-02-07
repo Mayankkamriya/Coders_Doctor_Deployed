@@ -6,7 +6,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
   await connectDB(); // Connect to the database
 
   const { email } = req.query;
-  console.log('req.query= email...',email)
+  // console.log('req.query= email...',email)
   if (!email) return res.status(400).json({ error: "Email is required" });
 
   try {
@@ -19,8 +19,15 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 
     console.log('user in response for getting id',user)
     res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+  } catch (error:unknown) {
+    // res.status(500).json({ error: "Internal Server Error" });
+    if (error instanceof Error) {
+      console.error("Error fetching user:", error.message);
+      res.status(500).json({ error: error.message });
+    } else {
+      console.error("Unknown error:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
   }
 }
 
