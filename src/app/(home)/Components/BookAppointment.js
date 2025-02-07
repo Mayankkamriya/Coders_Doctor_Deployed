@@ -43,7 +43,7 @@ const BookAppointment = ({ docId }) => {
         date: selectedDate,
         time: selectedTime,
       });
-      
+      console.log('data',data.date)
       toast.success("Appointment booked successfully!");
       setSelectedDate("")
       setSelectedTime("")

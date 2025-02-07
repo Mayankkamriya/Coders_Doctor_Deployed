@@ -4,7 +4,8 @@ import User from "@/src/types/User"; // Ensure this points to your Mongoose mode
 
 export async function GET(req, { params }) {
   await connectDB();
-
+  
+    console.log(req.method)
   const { email } =await params; // Extract email from URL
 
   if (!email) {
@@ -18,7 +19,6 @@ export async function GET(req, { params }) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    console.log("User found:", user);
     return NextResponse.json(user, { status: 200 });
   } catch (error) {
     console.error("Error fetching user:", error);
