@@ -2,18 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-// import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useUser } from "@/src/context/UserContext";
 
 const BookAppointment = ({ docId }) => {
   
-  const route = process.env.BOOKLIST_URL_LOC
-  
   const {user} = useUser()
   const router = useRouter()
-
+  
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
 
@@ -28,26 +25,25 @@ const BookAppointment = ({ docId }) => {
     if (!selectedDate || !selectedTime) {
       return toast.warn("Please select a date and time");
     }
-    console.log('user',user)
+
     try {
 
    // Fetch user details from database using email
-   const userResponse = await axios.get(`http://localhost:3000/api/user/${user.email}`);
+   const userResponse = await axios.get(`/api/user/${user.email}`);
 
-      console.log('userresponse....', userResponse)
    if (!userResponse.data || !userResponse.data._id) {
      return toast.error("User not found in database");
    }
 
   const userId = userResponse.data._id;
 
-      const { data } = await axios.post(`http://localhost:3000/api/appointment`, {
-        // userId: user._id,
-        userId:'67a46f6456fa3d4f74df7d07',
+      const { data } = await axios.post(`/api/appointment`, {
+        userId: userId,
         doctorId: docId,
         date: selectedDate,
         time: selectedTime,
       });
+      
       toast.success("Appointment booked successfully!");
       setSelectedDate("")
       setSelectedTime("")
