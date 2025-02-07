@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 const BookAppointment = ({docId}) => {
   const {user} = useUser()
   const router = useRouter()
-  const [doctor, setDoctor] = useState(null);
+  // const [doctor, setDoctor] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [availableSlots, setAvailableSlots] = useState([]);
@@ -18,6 +18,7 @@ const BookAppointment = ({docId}) => {
     fetchDoctorDetails();
   }, []);
 
+// console.log(setDoctor())
   const fetchDoctorDetails = async () => {
     try {
       generateAvailableSlots();
@@ -89,7 +90,9 @@ const BookAppointment = ({docId}) => {
 
   return (
     <div className="p-6">
-      <h2 className="text-xl font-semibold mb-4">Book Appointment with {doctor?.name}</h2>
+      <h2 className="text-xl font-semibold mb-4">Book Appointment with 
+     {/* {doctor?.name} */}
+      </h2>
       <div className="flex gap-4 overflow-x-auto p-2 ">
         {Object.keys(availableSlots).map((date) => (
           <button
