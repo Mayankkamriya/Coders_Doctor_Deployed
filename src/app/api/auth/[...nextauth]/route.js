@@ -5,6 +5,7 @@ import { MongoClient } from "mongodb";
 // import EmailProvider from "next-auth/providers/email"
 
 const handler = NextAuth({
+  debug: true,
   providers: [
     // OAuth authentication providers...
 

@@ -19,7 +19,7 @@ const {user} = useUser()
                 <BookIcon />
               </div>
               <span className="text-xl font-bold uppercase tracking-tight text-primary-500">
-                Coders Book
+                Coder's Doctor
               </span>
             </div>
           </Link>
