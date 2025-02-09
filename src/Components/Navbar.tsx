@@ -55,7 +55,7 @@ const {user} = useUser()
   alt="User Avatar"
   width={32} // Equivalent to h-8
   height={32} // Equivalent to w-8
-  className="rounded-full object-cover"
+  className="rounded-full object-cover hidden sm:block"
 />
 
               <span className="h-10 rounded-md border border-primary-500 px-4 py-2 text-sm font-medium text-primary-500 transition-all">Welcome {user?.name}</span>
