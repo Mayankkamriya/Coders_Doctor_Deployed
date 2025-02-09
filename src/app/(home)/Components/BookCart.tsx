@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 const BookCart = ({ book }: { book: Book }) => {
   return (
-    <div className='flex gap-5 border shadow-md rounded'>
+    <div className='flex gap-5 border ml-4 shadow-md rounded'>
         <Image 
         src={book.image} 
         alt={book.name} 

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useUser } from "@/src/context/UserContext";
 import { useRouter } from "next/navigation";
-
+import './scrollbar.css'
 const BookAppointment = ({docId}) => {
   const {user} = useUser()
   const router = useRouter()
@@ -89,15 +89,15 @@ const BookAppointment = ({docId}) => {
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-semibold mb-4">Book Appointment with 
+    <div className="p-1.5 mt-4">
+      <h2 className="text-xl font-semibold mb-4">Book Appointment with Coders Doctor
      {/* {doctor?.name} */}
       </h2>
-      <div className="flex gap-4 overflow-x-auto p-2 ">
+      <div className="flex gap-4 scrollbar-hidden overflow-x-auto p-2 ">
         {Object.keys(availableSlots).map((date) => (
           <button
             key={date}
-            className={`px-4 py-2 border rounded-full ${selectedDate === date ? "bg-[#CE7041] text-white" : "bg-gray-200"}`}
+            className={`px-4 py-2 border rounded-full text-sm md:text-base lg:text-lg md:w-21 md:h-35 ${selectedDate === date ? "bg-[#CE7041] text-white" : "bg-gray-200"}`}
             onClick={() => setSelectedDate(date)}
           >
             {new Date(date).toDateString()}
@@ -106,11 +106,11 @@ const BookAppointment = ({docId}) => {
       </div>
 
       {selectedDate && (
-        <div className="flex gap-4 overflow-x-auto p-2 mt-4">
+        <div className="flex gap-4 overflow-x-auto scrollbar-hidden p-2 mt-4">
           {availableSlots[selectedDate].map((time, index) => (
             <button
               key={index}
-              className={`px-4 py-2 border rounded-full ${selectedTime === time ? "bg-[#CE7041] text-white" : "bg-gray-200"}`}
+              className={`px-4 py-2 border rounded-full text-sm md:text-base lg:text-lg ${selectedTime === time ? "bg-[#CE7041] text-white" : "bg-gray-200"}`}
               onClick={() => setSelectedTime(time)}
             >
               {time}

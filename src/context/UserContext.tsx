@@ -48,10 +48,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (session) {
       setUser({
+        // id: session.user?.id || "",
         name: session.user?.name || "",
         email: session.user?.email || "",
         image: session.user?.image || "",
       });
+      // console.log('session in usercontext...',session)
     }
   }, [session]);
 

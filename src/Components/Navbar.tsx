@@ -5,6 +5,7 @@ import React from 'react';
 import { useUser } from "@/src/context/UserContext";
 import Image from "next/image";
 
+
 const Navbar = () => {
   // const { data: session } = useSession();
 const {user} = useUser()
@@ -15,6 +16,13 @@ const {user} = useUser()
           <Link href={'/'}>
             <div className="flex items-center gap-1">
               <div className="relative">
+              {/* <Image
+                src={  "/new_logo.jpg"} // Dynamic image
+                alt="User Avatar"
+                width={32} // Equivalent to h-8
+                height={32} // Equivalent to w-8
+                className="rounded-full object-cover"
+              /> */}
                 <Hexagon />
                 <BookIcon />
               </div>
