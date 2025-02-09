@@ -15,8 +15,6 @@
 import { useEffect, useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import { UserProvider } from "@/src/context/UserContext";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const SessionWrapper = ({ children }) => {
 
