@@ -12,7 +12,6 @@
 
 
 "use client";
-import { useEffect, useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import { UserProvider } from "@/src/context/UserContext";
 
