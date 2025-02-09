@@ -18,11 +18,12 @@ import { UserProvider } from "@/src/context/UserContext";
 
 const SessionWrapper = ({ children }) => {
 
-  const [showToast, setShowToast] = useState(false);
+  // const [showToast, setShowToast] = useState(false);
 
-  useEffect(() => {
-    setShowToast(true);
-  }, []);
+  // useEffect(() => {
+  //   setShowToast(true);
+  // }, []);
+  // console.log(showToast)
   return <SessionProvider >
     <UserProvider>
       {children}
