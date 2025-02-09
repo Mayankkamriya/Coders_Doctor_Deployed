@@ -12,11 +12,25 @@
 
 
 "use client";
+import { useEffect, useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import { UserProvider } from "@/src/context/UserContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SessionWrapper = ({ children }) => {
-  return <SessionProvider ><UserProvider>{children}</UserProvider></SessionProvider>;
+
+  const [showToast, setShowToast] = useState(false);
+
+  useEffect(() => {
+    setShowToast(true);
+  }, []);
+  return <SessionProvider >
+    <UserProvider>
+      {children}
+    </UserProvider>
+    {/* {showToast &&<ToastContainer position="top-right" autoClose={2500} />} */}
+  </SessionProvider>;
 };
 
 export default SessionWrapper;

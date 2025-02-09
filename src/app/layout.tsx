@@ -41,13 +41,15 @@
 // }
 
 
-//only deplot time bug occure 
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import SessionWrapper from "./(home)/Components/SessionWrapper";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -82,13 +84,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <SessionWrapper >
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <SessionWrapper >
           <Navbar />
           <main>{children}</main>
           <Footer />
-      </body>
+          <ToastContainer position="top-right" autoClose={2500}/>
         </SessionWrapper>
+      </body>
     </html>
   );
 }

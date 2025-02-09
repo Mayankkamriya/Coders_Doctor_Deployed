@@ -43,15 +43,20 @@ const BookAppointment = ({docId}) => {
   };
 
   const handleBookAppointment = async () => {
+    
+    if ( !selectedDate) {
+      toast.warn("Please select Date");
+      return;
+    }
+
+    if ( !selectedTime) {
+      toast.warn("Please select time");
+      return;
+    }
 
     if (!user) {
       toast.warn("Please log in to book an appointment");
         return router.push("/about");
-    }
-
-    if (!selectedDate || !selectedTime) {
-      toast.warn("Please select date and time");
-      return;
     }
     
     try {
@@ -61,7 +66,7 @@ const BookAppointment = ({docId}) => {
 
    if (!userResponse.data || !userResponse.data._id) {
      return toast.error("User not found in database");
-   }
+    }
 
   const userId = userResponse.data._id;
 
@@ -90,7 +95,7 @@ const BookAppointment = ({docId}) => {
 
   return (
     <div className="p-1.5 mt-4">
-      <h2 className="text-xl font-semibold mb-4">Book Appointment with Coders Doctor
+      <h2 className="text-xl font-semibold mb-4">Book Appointment with Coder&#39;s Doctor
      {/* {doctor?.name} */}
       </h2>
       <div className="flex gap-4 scrollbar-hidden overflow-x-auto p-2 ">
