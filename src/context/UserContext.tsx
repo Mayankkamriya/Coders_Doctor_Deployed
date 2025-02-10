@@ -6,7 +6,7 @@ import User from "@/src/types/User";
 
 // Define User Type
 interface User {
-  // id: string
+  // id: string;
   name: string;
   email: string;
   image?: string;

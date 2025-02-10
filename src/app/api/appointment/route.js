@@ -57,7 +57,6 @@ export async function GET(req) {
 
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId");
-console.log('userId in query...req.url...',userId, req.url)
 
     if (!userId) {
       return new Response(JSON.stringify({ success: false, message: "User ID is required" }), {
@@ -71,7 +70,6 @@ console.log('userId in query...req.url...',userId, req.url)
 
 // Fetch appointments where the stored `userId` matches the requested `userId`
 const userAppointments = await Appointment.find({ userId });
-console.log('appointments...',userAppointments)
 
     return new Response(JSON.stringify({ success: true, data: userAppointments }), {
       status: 200,
