@@ -2,9 +2,9 @@ export interface Appointment {
   _id : string;
   userId: string;
   doctorId: string;
-  cancelled: Boolean;
-  payment: Boolean
-  isCompleted: Boolean;
+  cancelled: boolean;
+  payment: boolean
+  isCompleted: boolean;
   date: string;
   time: string;
 }
