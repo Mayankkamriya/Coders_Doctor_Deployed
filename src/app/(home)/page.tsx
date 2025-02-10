@@ -34,22 +34,24 @@
 // }
 
 
-
 import { Suspense } from "react";
 import Banner from "./Components/Banner"
 import BookList from "./Components/BookList";
 import Loading from "@/src/Components/Loading";
+import Appointment from "./Components/Appointment";
 
 export default async function Home() {
 
 
-  return (<>
-
+  return (
+<>
   <Banner/>
   <Suspense fallback={<Loading/>}>
+    {/* <Appointment /> */}
+    <Suspense fallback={<Loading />}> <Appointment /> </Suspense>
     <BookList />
   </Suspense>
-
+  {/* // </AppointmentList> */}
   </>
   );
 }
