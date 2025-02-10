@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "@/src/context/UserContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Appointment } from "@/src/types/Appointment";
 
 const AppointmentList = () => {
   const { user } = useUser();  // Get user from context
-  const [appointments, setAppointments] = useState([]);
+  const [appointments, setAppointments] =  useState<Appointment[]>([]);
 
   useEffect(() => {
     if (!user) return;  // Don't fetch if user is not logged in
