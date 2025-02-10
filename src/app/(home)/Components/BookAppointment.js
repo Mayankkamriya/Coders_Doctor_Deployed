@@ -74,7 +74,7 @@ const BookAppointment = ({docId}) => {
         console.log("Please select userid");
       }
     if (!docId) {
-        console.log("Please select a date and time");
+        console.log("Please try booking with other doctor");
       }
 
       const { data } = await axios.post(`/api/appointment`, {
@@ -83,11 +83,13 @@ const BookAppointment = ({docId}) => {
         date: selectedDate,
         time: selectedTime,
       });
-    console.log('data.date..',data.date)
+    console.log(data.date)
 
       toast.success("Appointment booked successfully!");
       setSelectedDate("")
       setSelectedTime("")
+      return router.push("/appointment");
+
     } catch (error) {
       toast.error("Failed to book appointment",error.message);
     }

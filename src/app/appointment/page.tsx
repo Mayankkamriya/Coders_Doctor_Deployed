@@ -36,7 +36,7 @@ const AppointmentList = () => {
   }, [user]);
 
   return (
-    <div className="px-5 py-10">
+    <div className="px-10 py-2">
       {appointments.length === 0 ? (
         <p>No appointments found.</p>
       ) : (
@@ -67,7 +67,7 @@ const AppointmentList = () => {
                     )}
   
                     {!item.cancelled && !item.payment && !item.isCompleted && (
-                      <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300">
+                      <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white hover:bg-[#CD7041] transition-all duration-300">
                         Pay Online
                       </button>
                     )}
