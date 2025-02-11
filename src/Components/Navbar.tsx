@@ -10,7 +10,7 @@ const Navbar = () => {
   // const { data: session } = useSession();
   const {user} = useUser()
   return (
-    <nav className="border-b">
+    <nav className="border-b px-5">
       <div className="max-w-7xl mx-auto flex items-center justify-between py-4">
         <div>
           <Link href={'/'}>
@@ -38,7 +38,7 @@ const Navbar = () => {
             // Show Sign-in button if not signed in
             <Link href="/api/auth/signin">
               <button className="h-10 rounded-md border border-primary-500 px-4 py-2 text-sm font-medium text-primary-500 transition-all hover:border-primary-100 hover:bg-primary-100 active:border-primary-200 active:bg-primary-200">
-                Sign in using GitHub
+                Sign in 
               </button>
             </Link>
           ) : (
@@ -58,7 +58,7 @@ const Navbar = () => {
   className="rounded-full object-cover hidden sm:block"
 />
 
-              <span className="h-10 rounded-md border border-primary-500 px-4 py-2 text-sm font-medium text-primary-500 transition-all">Welcome {user?.name}</span>
+              <span className="h-10 rounded-md border border-primary-500 px-4 py-2 text-sm font-medium text-primary-500 transition-all hidden sm:block">Welcome {user?.name}</span>
               <button
                 onClick={() => signOut({ callbackUrl: '/' })}
                 className="h-10 rounded-md bg-primary-500 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-primary-600 active:bg-primary-700"

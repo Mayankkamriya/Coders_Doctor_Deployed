@@ -37,7 +37,7 @@ const AppointmentList = () => {
   }, [user]);
 
   return (
-    <div className="px-10 py-2">
+    <div className="px-5 pl-[4.25rem] pr-[4.25rem] py-2">
       {appointments.length === 0 ? (
         <p>No appointments found.</p>
       ) : (
@@ -47,9 +47,9 @@ const AppointmentList = () => {
             {appointments.map((item, index) => {
               return (
                 <div className="grid grid-cols-[1fr_2fr] gap-4 sm:flex sm:gap-6 py-2 border-b" key={index}>
-                  <div>
-                    {/* <img className="w-32 bg-indigo-50" src={item.docData.image} alt="" /> */}
-                  </div>
+                  {/* <div>
+                    <img className="w-32 bg-indigo-50" src={item.docData.image} alt="" />
+                  </div> */}
                   <div className="flex-1 text-sm text-zinc-600">
                     {/* <p className="text-neutral-800 font-semibold">{item.docData.name}</p> */}
                     {/* <p>{item.docData.speciality}</p> */}
@@ -58,7 +58,7 @@ const AppointmentList = () => {
                       {item.date} | {item.time}
                     </p>
                   </div>
-                  <div></div>
+                  {/* <div></div> */}
   
                   <div className="flex flex-col gap-2 justify-center">
                     {item.payment && !item.isCompleted && (
