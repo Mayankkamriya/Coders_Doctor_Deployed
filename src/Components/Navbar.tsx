@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const Navbar = () => {
   // const { data: session } = useSession();
-const {user} = useUser()
+  const {user} = useUser()
   return (
     <nav className="border-b">
       <div className="max-w-7xl mx-auto flex items-center justify-between py-4">
@@ -60,7 +60,7 @@ const {user} = useUser()
 
               <span className="h-10 rounded-md border border-primary-500 px-4 py-2 text-sm font-medium text-primary-500 transition-all">Welcome {user?.name}</span>
               <button
-                onClick={() => signOut()}
+                onClick={() => signOut({ callbackUrl: '/' })}
                 className="h-10 rounded-md bg-primary-500 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-primary-600 active:bg-primary-700"
               >
                 Sign out

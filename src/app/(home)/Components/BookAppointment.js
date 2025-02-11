@@ -56,7 +56,12 @@ const BookAppointment = ({docId}) => {
 
     if (!user) {
       toast.warn("Please log in to book an appointment");
-        return router.push("/about");
+      setTimeout(() => {
+        router.push("/about");
+      }, 200);
+      window.scrollTo({top: 0, behavior: 'smooth' }) 
+      // window.scrollTo({top: 0, behavior: 'smooth' }) 
+      //   return router.push("/about");
     }
     
     try {
@@ -88,7 +93,12 @@ const BookAppointment = ({docId}) => {
       toast.success("Appointment booked successfully!");
       setSelectedDate("")
       setSelectedTime("")
-      return router.push("/appointment");
+      // router.push("/appointment");
+      
+      setTimeout(() => {
+        router.push("/appointment");
+      }, 200);
+      window.scrollTo({top: 0, behavior: 'smooth' })
 
     } catch (error) {
       toast.error("Failed to book appointment",error.message);
