@@ -83,3 +83,43 @@ const userAppointments = await Appointment.find({ userId });
     });
   }
 }
+
+export async function PATCH(req) {
+  try {
+    await connectDB();
+
+    const { searchParams } = new URL(req.url);
+    const appointmentId = searchParams.get("appointmentId");
+
+    if (!appointmentId) {
+      return new Response(
+        JSON.stringify({ success: false, message: "Appointment ID is required" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    const updatedAppointment = await Appointment.findByIdAndUpdate(
+      appointmentId,
+      { cancelled: true },
+      { new: true }
+    );
+
+    if (!updatedAppointment) {
+      return new Response(
+        JSON.stringify({ success: false, message: "Appointment not found" }),
+        { status: 404, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    return new Response(
+      JSON.stringify({ success: true, data: updatedAppointment }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
+  } catch (error) {
+    console.error("Error updating appointment:", error);
+    return new Response(
+      JSON.stringify({ success: false, message: "Failed to update appointment" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
+}

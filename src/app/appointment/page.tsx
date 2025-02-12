@@ -26,7 +26,7 @@ const AppointmentList = () => {
 
         const appointment = await axios.get(`/api/appointment?userId=${userId}`);
         setAppointments(appointment.data.data);
-
+console.log(appointment)
       } catch (error) {
         console.error("Error fetching appointments:", error);
         toast.error("Failed to load appointments.");
@@ -35,6 +35,27 @@ const AppointmentList = () => {
 
     fetchAppointments();
   }, [user]);
+
+  const cancelAppointment = async (appointmentId: string) => {
+    try {
+      const response = await axios.patch(`/api/appointment?appointmentId=${appointmentId}`);
+
+      if (response.data.success) {
+        setAppointments((prevAppointments) =>
+          prevAppointments.map((appointment) =>
+            appointment._id === appointmentId
+              ? { ...appointment, cancelled: true }
+              : appointment
+          )
+        );
+      } else {
+        console.error("Failed to cancel appointment:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error cancelling appointment:", error);
+    }
+  };
+
 
   return (
     <div className="px-5 pl-[4.25rem] pr-[4.25rem] py-2">
@@ -74,7 +95,7 @@ const AppointmentList = () => {
                     )}
   
                     {!item.cancelled && !item.isCompleted && (
-                      <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300">
+                      <button onClick={() =>cancelAppointment(item._id)} className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300">
                         Cancel Appointment
                       </button>
                     )}

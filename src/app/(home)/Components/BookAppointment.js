@@ -57,9 +57,9 @@ const BookAppointment = ({docId}) => {
     if (!user) {
       toast.warn("Please log in to book an appointment");
       setTimeout(() => {
-        router.push("/api/auth/signin");
+        window.scrollTo({top: 0, behavior: 'smooth' }) 
+        return router.push("/api/auth/signin");
       }, 200);
-      window.scrollTo({top: 0, behavior: 'smooth' }) 
       // window.scrollTo({top: 0, behavior: 'smooth' }) 
       //   return router.push("/about");
     }
