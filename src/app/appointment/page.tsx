@@ -26,7 +26,7 @@ const AppointmentList = () => {
 
         const appointment = await axios.get(`/api/appointment?userId=${userId}`);
         setAppointments(appointment.data.data);
-console.log(appointment)
+
       } catch (error) {
         console.error("Error fetching appointments:", error);
         toast.error("Failed to load appointments.");
@@ -35,6 +35,41 @@ console.log(appointment)
 
     fetchAppointments();
   }, [user]);
+
+  const payAppointment = async (appointmentId: string,) => {
+
+    const data = {
+      name: "mayank kamriya",
+      mobileNumber:'1234567890',
+      amount: 10*100,
+      appointmentId : appointmentId,
+      MUID:"MUIDW" + Date.now(),
+      transactionId: "T" + Date.now(),
+    }
+    try {
+      console.log('data...',data)
+      const response = await axios.post( '/api/pay/create-order', data, {
+        headers: {
+          'Content-Type': 'application/json', // ✅ Ensure correct content type
+        },})
+  console.log('response...',response)
+      if (response.data && response.data.data.instrumentResponse.redirectInfo.url) {
+          window.location.href= response.data.data.instrumentResponse.redirectInfo.url;
+          console.log('Api Response Infrontend  ....',response.data)
+        }
+  
+      if (response.status) {
+        toast.success('Payment is successful')
+        console.log('response.success')
+      }
+  
+    } catch (error) {
+      console.log("error in payment", error)
+    }
+
+
+  }
+
 
   const cancelAppointment = async (appointmentId: string) => {
     try {
@@ -89,7 +124,7 @@ console.log(appointment)
                     )}
   
                     {!item.cancelled && !item.payment && !item.isCompleted && (
-                      <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white hover:bg-[#CD7041] transition-all duration-300">
+                      <button onClick={() =>payAppointment(item._id)} className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white hover:bg-[#CD7041] transition-all duration-300">
                         Pay Online
                       </button>
                     )}
