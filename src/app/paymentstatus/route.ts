@@ -3,17 +3,16 @@ import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 import crypto from 'crypto';
 
-// const paymentstatus= async (req:NextApiRequest, res:NextApiResponse) => {
     export  const POST = async (req: NextRequest, res:NextResponse) => {
     let salt_key = process.env.PHONEPE_MERCHANT_KEY
     let merchant_id = process.env.PHONEPE_MERCHANT_ID
     
-
 try{
-    //   const merchantTransactionId = req.query.id;
-    const merchantTransactionId='T1739355183590'
+  
+      const successredirecturl =  process.env.BOOKLIST_URL_LOC
+      const merchantTransactionId = req.nextUrl.searchParams.get("id");
+      const appointmentId = req.nextUrl.searchParams.get("appointmentId");
       const merchantId = merchant_id
-     const appointmentId  = '67ac5e912031b0dd007cb550'
 
   const keyIndex = 1
   const string  = `/pg/v1/status/${merchantId}/${merchantTransactionId}${salt_key}`
@@ -28,17 +27,14 @@ try{
           'accept' : 'application/json',
           'Content-Type': 'application/json',
           'X-VERIFY': checksum,
-        //   'X-MERCHANT-ID': merchantId 
+          'X-MERCHANT-ID': merchantId 
       },
   }
-console.log('/paymentstatus...',option)
+
 const response = await axios(option)
-console.log('response..',response)
+
     if (response.data.success){
          
-      // res.json({message: "payment successfull", data: response.data}) //black page crome
-      
-      // console.log('response.data....',response.data)
       const paymentDetails = {
         transactionId: response.data.data.transactionId || "N/A",
         amount: response.data.data.amount/100 || 0, // Convert if necessary
@@ -46,31 +42,31 @@ console.log('response..',response)
         appointmentId: appointmentId,
         date: new Date().toLocaleString(),
       };
-console.log('paymentdetails...',paymentDetails)
-//   //      // Update appointment with payment details
-//   // await appointmentModel.findByIdAndUpdate(appointmentId, {
-//   //   paymentDetails,
-//   // });
+console.log(encodeURIComponent(JSON.stringify(paymentDetails)))
+  //      // Update appointment with payment details
+  // await appointmentModel.findByIdAndUpdate(appointmentId, {
+  //   paymentDetails,
+  // });
   
-//       // const paymentDetails = encodeURIComponent(JSON.stringify(response.data));
-//       // console.log('paymentDetails....',paymentDetails)
+if (!appointmentId ) {
+  return NextResponse.json({ success: false, message: Error },
+    { status: 500 }
+  );
+}
 
-
-await verifyPhonePePayment (response.data,appointmentId)
+ await verifyPhonePePayment (response.data,appointmentId)
       
-      const successredirecturl =  'http://localhost:3000'
-// console.log('process.env.VITE_FRONTEND_URL3....', process.env.VITE_FRONTEND_URL)
-
       // res.redirect(`${successredirecturl}/my-appointment?paymentDetails=${encodeURIComponent(JSON.stringify(paymentDetails))}`);
-     res.redirect(`${successredirecturl}/PaymentSuccess?paymentDetails=${encodeURIComponent(JSON.stringify(paymentDetails))}`);
+    //  return NextResponse.redirect(`${successredirecturl}/appointment?paymentDetails=${encodeURIComponent(JSON.stringify(paymentDetails))}`);
 
+    const url = new URL(`${successredirecturl}/appointment`);
+    // url.searchParams.append('paymentDetails', JSON.stringify(paymentDetails));
+    
+    return NextResponse.redirect(url.toString());
 
     }else{
       
-      const successredirecturl = process.env.VITE_FRONTEND_URL || 'http://localhost:3000'
-// console.log('process.env.VITE_FRONTEND_URL4....', process.env.VITE_FRONTEND_URL)
-
-        return res.redirect(`${successredirecturl}/`)
+        return NextResponse.redirect(`${successredirecturl}/about`)
     }
 
 } catch (error){
@@ -80,20 +76,21 @@ await verifyPhonePePayment (response.data,appointmentId)
 };
 
 
-const verifyPhonePePayment = async (responseData:NextRequest, appointmentId:NextResponse) => {
+const verifyPhonePePayment = async (responseData:any, appointmentId:string) => {
     try {
-      
+      const successredirecturl =  process.env.BOOKLIST_URL_LOC
       // const { paymentId, orderId, state } = req.body; 
-      const state1 = responseData 
-      console.log(state1)
-const state= 'COMPLETED'
-      console.log('responseData in verifypayment......',responseData)
+      const state = responseData?.data?.state 
+      
         if (state === 'COMPLETED') {
 
         const appointmentData = await appointmentModel.findById(appointmentId);
           if (appointmentData) {
             await appointmentModel.findByIdAndUpdate(appointmentId, { payment: true });
             // console.log(`Appointment with ID ${appointmentId} marked as Paid.`);
+            return NextResponse.redirect(`${successredirecturl}/appointment`);
+
+    //  return NextResponse.redirect(`${successredirecturl}/appointment?paymentDetails=${encodeURIComponent(JSON.stringify(paymentDetails))}`);
           } else {
             console.log("Appointment not found.");
           }
