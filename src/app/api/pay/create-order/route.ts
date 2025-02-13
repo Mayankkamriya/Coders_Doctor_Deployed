@@ -1,5 +1,4 @@
 import appointmentModel from '@/src/models/Appointment'
-import { NextApiRequest, NextApiResponse } from 'next'
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 import crypto from 'crypto';
@@ -67,13 +66,14 @@ import crypto from 'crypto';
     const response = await axios.request(option);
     
     return NextResponse.json(response.data);
-  } catch (error: any) {
+  } catch (error: unknown) {
+    if (error instanceof Error) {
     console.error("Error:", error.message);
     
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
-    );
+    )};
   }
 };
 

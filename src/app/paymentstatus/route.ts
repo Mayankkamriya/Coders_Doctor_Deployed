@@ -4,11 +4,13 @@ import axios from 'axios';
 import crypto from 'crypto';
 
     export  const POST = async (req: NextRequest, res:NextResponse) => {
-    let salt_key = process.env.PHONEPE_MERCHANT_KEY
-    let merchant_id = process.env.PHONEPE_MERCHANT_ID
+    const salt_key = process.env.PHONEPE_MERCHANT_KEY
+    const merchant_id = process.env.PHONEPE_MERCHANT_ID
     
 try{
   
+  console.log(encodeURIComponent(JSON.stringify(res)))
+
       const successredirecturl =  process.env.BOOKLIST_URL_LOC
       const merchantTransactionId = req.nextUrl.searchParams.get("id");
       const appointmentId = req.nextUrl.searchParams.get("appointmentId");
@@ -75,8 +77,13 @@ if (!appointmentId ) {
 
 };
 
+interface PhonePeResponse {
+  data?: {
+    state?: string;
+  };
+}
 
-const verifyPhonePePayment = async (responseData:any, appointmentId:string) => {
+const verifyPhonePePayment = async (responseData:PhonePeResponse, appointmentId:string) => {
     try {
       const successredirecturl =  process.env.BOOKLIST_URL_LOC
       // const { paymentId, orderId, state } = req.body; 
