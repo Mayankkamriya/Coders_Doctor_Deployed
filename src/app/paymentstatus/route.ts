@@ -3,13 +3,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 import crypto from 'crypto';
 
-    export  const POST = async (req: NextRequest, res:NextResponse) => {
+    export  const POST = async (req: NextRequest) => {
     const salt_key = process.env.PHONEPE_MERCHANT_KEY
     const merchant_id = process.env.PHONEPE_MERCHANT_ID
     
 try{
   
-  console.log(encodeURIComponent(JSON.stringify(res)))
+  // console.log(encodeURIComponent(JSON.stringify(res)))
 
       const successredirecturl =  process.env.BOOKLIST_URL_LOC
       const merchantTransactionId = req.nextUrl.searchParams.get("id");
