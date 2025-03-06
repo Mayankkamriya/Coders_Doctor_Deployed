@@ -59,7 +59,7 @@ const AppointmentList = () => {
         }
   
       if (response.status) {
-        toast.success('Payment is successful')
+        // toast.success('Payment is successful')
         console.log('response.success')
       }
   

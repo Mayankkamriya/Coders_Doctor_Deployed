@@ -13,7 +13,8 @@ const BookAppointment = ({docId}) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [availableSlots, setAvailableSlots] = useState([]);
-  
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     fetchDoctorDetails();
   }, [docId]);
@@ -65,11 +66,12 @@ const BookAppointment = ({docId}) => {
     }
     
     try {
-
+      setLoading(true); 
 //  Fetch user details from database using email
    const userResponse = await axios.get(`/api/user/${user.email}`);
 
    if (!userResponse.data || !userResponse.data._id) {
+    setLoading(false);
      return toast.error("User not found in database");
     }
 
@@ -103,6 +105,9 @@ const BookAppointment = ({docId}) => {
     } catch (error) {
       toast.error("Failed to book appointment",error.message);
     }
+    finally {
+      setLoading(false); // Stop loading in both success and failure cases
+    }
   };
 
   return (
@@ -135,13 +140,24 @@ const BookAppointment = ({docId}) => {
           ))}
         </div>
       )}
-
+{/* 
       <button
         onClick={handleBookAppointment}
         className="mt-6 px-6 py-2 bg-[#CE7041] text-white rounded-full "
       >
         Confirm Appointment
-      </button>
+      </button> */}
+
+      <button
+  onClick={handleBookAppointment}
+  disabled={loading}
+  className={`mt-6 px-6 py-2 rounded-full ${
+    loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#CE7041] text-white"
+  }`}
+>
+  {loading ? "Booking..." : "Confirm Appointment"}
+</button>
+
     </div>
   );
 };
